@@ -26,8 +26,6 @@ int particionar(int arr[], int inicio, int fim) {
 void quicksort(int arr[], int inicio, int fim) {
     if (inicio < fim) {
         int pi = particionar(arr, inicio, fim); // índice do pivô
-
-        // Ordena os elementos antes e depois da partição
         quicksort(arr, inicio, pi - 1);
         quicksort(arr, pi + 1, fim);
     }
@@ -40,15 +38,24 @@ void imprimirArray(int arr[], int tamanho) {
     printf("\n");
 }
 
+// Função principal para executar o código
 int main() {
+    // Array original para teste de ordenação
     int arr[] = {10, 7, 8, 9, 1, 5};
     int n = sizeof(arr) / sizeof(arr[0]);
-    printf("Fila original: ");
+    printf("Array original: ");
     imprimirArray(arr, n);
 
+    // Chamada da função Quicksort
     quicksort(arr, 0, n - 1);
-
-    printf("Fila ordenada: ");
+    printf("Array ordenado: ");
     imprimirArray(arr, n);
+
+    // Casos de teste:
+    //  Array já ordenado: int arr[] = {1, 2, 3, 4, 5, 6};
+    //  Ordem decrescente: int arr[] = {6, 5, 4, 3, 2, 1};
+    //  Array com elementos repetidos: int arr[] = {5, 3, 8, 3, 5, 2, 8};
+
+
     return 0;
 }
