@@ -1,8 +1,8 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 #include <time.h>
 
-
+#define TAMANHO 200
 // Função para trocar dois elementos
 void trocar(int *a, int *b) {
     int temp = *a;
@@ -34,11 +34,16 @@ void quicksort(int arr[], int inicio, int fim) {
     }
 }
 
-// Função para imprimir o array
-void imprimirArray(int arr[], int tamanho) {
-    for (int i = 0; i < tamanho; i++)
-        printf("%d ", arr[i]);
-    printf("\n");
+void preencherArray(int arr[], int tamanho, int tipo) {
+    for (int i = 0; i < tamanho; i++) {
+        if (tipo == 1) {
+            arr[i] = rand() % 100; // Caso aleatório (médio caso)
+        } else if (tipo == 2) {
+            arr[i] = i; // Caso crescente (pior caso)
+        } else if (tipo == 3) {
+            arr[i] = tamanho - i; // Caso decrescente (melhor caso)
+        }
+    }
 }
 
 double medirTempoExecucao(void (*sortFunc)(int*, int, int), int *arr, int inicio, int fim) {
@@ -50,31 +55,34 @@ double medirTempoExecucao(void (*sortFunc)(int*, int, int), int *arr, int inicio
 
 // Função principal para executar o código
 int main() {
-    // Exemplo de array para teste
-    int arr[] = {10, 7, 8, 9, 1, 5};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    
-    // Cópia do array para o Quicksort
-    int arr_quick[n];
-    for (int i = 0; i < n; i++) arr_quick[i] = arr[i];
+ 
+ int arr[TAMANHO];
+    clock_t inicio, fim;
+    double tempo;
 
-    printf("Array original: ");
-    imprimirArray(arr, n);
+    // Caso Médio (array aleatório)
+    preencherArray(arr, TAMANHO, 1);
+    inicio = clock();
+    quicksort(arr, 0, TAMANHO - 1);
+    fim = clock();
+    tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
+    printf("Quicksort - Caso Médio: %.6f segundos\n", tempo);
 
-    // Medição do tempo de execução do Quicksort
-    clock_t inicio_quick = clock();
-    quicksort(arr_quick, 0, n - 1);
-    clock_t fim_quick = clock();
-    double tempo_quick = (double)(fim_quick - inicio_quick) / CLOCKS_PER_SEC;
+    // Caso Pior (array crescente)
+    preencherArray(arr, TAMANHO, 2);
+    inicio = clock();
+    quicksort(arr, 0, TAMANHO - 1);
+    fim = clock();
+    tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
+    printf("Quicksort - Caso Pior: %.6f segundos\n", tempo);
 
-    printf("Array ordenado por Quicksort: ");
-    imprimirArray(arr_quick, n);
-    printf("Tempo de execução do Quicksort: %.6f segundos\n", tempo_quick);
-
-    // Casos de teste:
-    //  Array já ordenado: int arr[] = {1, 2, 3, 4, 5, 6};
-    //  Ordem decrescente: int arr[] = {6, 5, 4, 3, 2, 1};
-    //  Array com elementos repetidos: int arr[] = {5, 3, 8, 3, 5, 2, 8};
+    // Caso Melhor (array decrescente)
+    preencherArray(arr, TAMANHO, 3);
+    inicio = clock();
+    quicksort(arr, 0, TAMANHO - 1);
+    fim = clock();
+    tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
+    printf("Quicksort - Caso Melhor: %.6f segundos\n", tempo);
 
     return 0;
 }
