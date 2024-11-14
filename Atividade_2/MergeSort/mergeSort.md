@@ -14,6 +14,23 @@ Aqui estão alguns arrays de teste para teste a observar o comportamento do algo
 
 ## Análise de Complexidade
 
-- **Complexidade de Tempo**: \(O(n \log n)\) em todos os casos
-- **Complexidade de Espaço**: \(O(n)\) devido ao array temporário usado para mesclar os subarrays.
+### Complexidade de Tempo
+
+- **Melhor Caso**: \( O(n \log n) \) — O `MergeSort` precisa de tempo \( O(n \log n) \) mesmo que o array já esteja ordenado, pois ele ainda precisa dividir e mesclar os subarrays.
+  
+- **Caso Médio**: \( O(n \log n) \) — O algoritmo precisa dividir o array repetidamente e mesclar as partes, mantendo a complexidade de \( O(n \log n) \) em cenários típicos.
+
+- **Pior Caso**: \( O(n \log n) \) — O `MergeSort` sempre realiza as mesmas operações independentemente da ordem inicial dos elementos, resultando em uma complexidade de tempo consistente de \( O(n \log n) \) mesmo quando o array está em ordem inversa.
+
+### Complexidade de Espaço
+
+- **Complexidade de Espaço**: \( O(n) \) — Devido ao uso de um array temporário para armazenar os elementos durante a mesclagem, o `MergeSort` requer espaço adicional proporcional ao tamanho do array original.
+
+## Exemplo de Saída
+
+Com um array de 200 elementos, temos os tempos de execução observados para cada caso:
+
+- **Caso Médio**: `0.000029 segundos`
+- **Caso Pior**: `0.000013 segundos`
+- **Caso Melhor**: `0.000012 segundos`
 

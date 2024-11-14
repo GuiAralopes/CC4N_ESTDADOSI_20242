@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define TAMANHO 200
 
 void merge(int *V, int inicio, int meio, int fim) {
     int *temp;           // Array temporário para armazenar o merge
@@ -49,40 +50,43 @@ void mergeSort(int *V, int inicio, int fim) {
     }
 }
 
-// Função para imprimir o array
-void imprimirArray(int V[], int tamanho) {
-    for (int i = 0; i < tamanho; i++)
-        printf("%d ", V[i]);
-    printf("\n");
+// Função para medir o tempo de execução
+void measureTime(void (*sortFunc)(int[], int, int), int arr[], int n, const char *label) {
+    clock_t start = clock();
+    sortFunc(arr, 0, n - 1);
+    clock_t end = clock();
+    double time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+    printf("%s: Tempo de execução: %f segundos\n", label, time_taken);
+}
+
+// Função para preencher o array com diferentes casos
+void preencherArray(int arr[], int tamanho, int tipo) {
+    for (int i = 0; i < tamanho; i++) {
+        if (tipo == 1) {
+            arr[i] = rand() % 100;  // Caso médio
+        } else if (tipo == 2) {
+            arr[i] = i;  // Caso crescente
+        } else if (tipo == 3) {
+            arr[i] = tamanho - i;  // Caso decrescente
+        }
+    }
 }
 
 
 int main() {
-    // Exemplo de array para teste
-    int V[] = {10, 7, 8, 9, 1, 5};
-    int n = sizeof(V) / sizeof(V[0]);
-    
-    // Cópia do array para o MergeSort
-    int arr_merge[n];
-    for (int i = 0; i < n; i++) arr_merge[i] = V[i];
+  int arr[TAMANHO];
 
-    printf("Array original: ");
-    imprimirArray(V, n);
+    // Caso Médio
+    preencherArray(arr, TAMANHO, 1);
+    measureTime(mergeSort, arr, TAMANHO, "MergeSort - Caso Médio");
 
-    // Medição do tempo de execução do MergeSort
-    clock_t inicio_merge = clock();
-    mergeSort(arr_merge, 0, n - 1);
-    clock_t fim_merge = clock();
-    double tempo_merge = (double)(fim_merge - inicio_merge) / CLOCKS_PER_SEC;
+    // Caso Pior
+    preencherArray(arr, TAMANHO, 2);
+    measureTime(mergeSort, arr, TAMANHO, "MergeSort - Caso Pior");
 
-    printf("Array ordenado por MergeSort: ");
-    imprimirArray(arr_merge, n);
-    printf("Tempo de execução do MergeSort: %.6f segundos\n", tempo_merge);
-
-    // Casos de teste:
-    // 1. Array já ordenado: int V[] = {1, 2, 3, 4, 5, 6};
-    // 2. Array em ordem decrescente: int V[] = {6, 5, 4, 3, 2, 1};
-    // 3. Array com elementos repetidos: int V[] = {5, 3, 8, 3, 5, 2, 8};
-   
+    // Caso Melhor
+    preencherArray(arr, TAMANHO, 3);
+    measureTime(mergeSort, arr, TAMANHO, "MergeSort - Caso Melhor");
+  
     return 0;
 }
