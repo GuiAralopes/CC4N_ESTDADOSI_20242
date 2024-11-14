@@ -2,7 +2,7 @@
 
 #include <time.h>
 
-#define TAMANHO 50
+
 // Função para trocar dois elementos
 void trocar(int *a, int *b) {
     int temp = *a;
