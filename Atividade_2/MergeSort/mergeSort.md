@@ -30,7 +30,6 @@ Aqui estão alguns arrays de teste para teste a observar o comportamento do algo
 
 Com um array de 200 elementos, temos os tempos de execução observados para cada caso:
 
-- **Caso Médio**: `0.000029 segundos`
-- **Caso Pior**: `0.000013 segundos`
-- **Caso Melhor**: `0.000012 segundos`
-
+- **Caso Médio**: `0.000051 segundos`
+- **Caso Pior**:  `0.000025 segundos`
+- **Caso Melhor**: `0.000022 segundos`

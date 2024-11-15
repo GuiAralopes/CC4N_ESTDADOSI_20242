@@ -37,7 +37,6 @@ Este projeto apresenta uma implementação do algoritmo de ordenação Quicksort
 
 Os tempos de execução foram medidos para um array de 200 elementos em cada caso:
 
-- **Caso Médio**: `0.000029 segundos`
-- **Caso Pior**: `0.000013 segundos`
-- **Caso Melhor**: `0.000012 segundos`
-
+- **Caso Médio**: `0.000020 segundoss`
+- **Caso Pior**: `0.000113 segundos`
+- **Caso Melhor**: `0.000081 segundos`
